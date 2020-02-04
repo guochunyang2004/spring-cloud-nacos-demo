@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: service-user
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        #ip: 192.168.0.109
+        #networkInterface: eth0
+    #inetutils:
+       # preferred-networks: 192.168.0
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    defaultExpireTime: 7200 #默认过期时间2小时
+    tokenExpireTime: 604800  #token过期时间604800=7天
+    database: 1
+    # Redis服务器地址
+    host: 47.94.108.220
+    # Redis服务器连接端口
+    port: 8379
+    # Redis服务器连接密码（默认为空）
+    password: redis@123
+    # 连接池最大连接数（使用负值表示没有限制）
+    jedis:
+      pool:
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        #        max-wait: -1
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
+    # 连接超时时间（毫秒）
+    #timeout: 10000
+server:
+  port: 9001
+dubbo:
+  scan:
+    base-packages: cn.zipworld.cloud.user.service.impl
+  protocol:
+    name: dubbo
+    port: 20881
+    host: 127.0.0.1
+  registry:
+    address: spring-cloud://127.0.0.1
+  #consumer:
+  #  check: false
+

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zipworld.cloud.product.dao.recycle.product.RecycleProductDao">
+  <resultMap id="BaseResultMap" type="cn.zipworld.cloud.product.entity.recycle.product.RecycleProduct">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="station_id" jdbcType="BIGINT" property="stationId" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="commodity_id" jdbcType="BIGINT" property="commodityId" />
+    <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+    <result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+    <result column="specification_id" jdbcType="BIGINT" property="specificationId" />
+    <result column="specification_name" jdbcType="VARCHAR" property="specificationName" />
+    <result column="lengths" jdbcType="BIGINT" property="lengths" />
+    <result column="width" jdbcType="BIGINT" property="width" />
+    <result column="height" jdbcType="BIGINT" property="height" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, station_id, code, commodity_id, sku_id,sku_name, specification_id, specification_name,
+    lengths, width, height, weight, create_by, create_date, update_by, update_date, remark, 
+    del_flag, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recycle_product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="select" resultType="cn.zipworld.cloud.product.entity.recycle.product.RecycleProduct">
+    select
+    <include refid="Base_Column_List" />
+    from recycle_product a
+    <where> a.del_flag=0
+      <if test="stationId != null and stationId != ''">
+        AND a.station_id = #{stationId}
+      </if>
+      <if test="code != null and code != ''">
+        AND a.code = #{code}
+      </if>
+      <if test="commodityId != null and commodityId != ''">
+        AND a.commodity_id = #{commodityId}
+      </if>
+      <if test="startDate !=null and startDate!=''">
+        AND  a.create_date &gt;=#{startDate}
+      </if>
+      <if test="endDate !=null and endDate!=''">
+        AND  a.create_date &lt;#{endDate}
+      </if>
+      <if test="workerId !=null and workerId!=''">
+        AND a.id in(SELECT recycle_product_id from recycle_product_user WHERE del_flag=0 AND user_id=#{workerId})
+      </if>
+      <if test="skuId != null and skuId != ''">
+        AND a.sku_id = #{skuId}
+      </if>
+      <if test="specificationId != null and specificationId != ''">
+        AND a.specification_id = #{specificationId}
+      </if>
+      <if test="specificationName != null and specificationName != ''">
+        AND a.specification_name = #{specificationName}
+      </if>
+      <if test="lengths != null and lengths != ''">
+        AND a.lengths = #{lengths}
+      </if>
+      <if test="width != null and width != ''">
+        AND a.width = #{width}
+      </if>
+      <if test="height != null and height != ''">
+        AND a.height = #{height}
+      </if>
+      <if test="weight != null and weight != ''">
+        AND a.weight = #{weight}
+      </if>
+      <if test="createBy != null  and createBy != ''">
+        AND a.create_by = #{createBy}
+      </if>
+      <if test="updateBy != null and updateBy != ''">
+        AND a.update_by = #{updateBy}
+      </if>
+
+    </where>
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    update recycle_product set del_flag='1'   where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.zipworld.cloud.product.entity.recycle.product.RecycleProduct" useGeneratedKeys="true">
+    insert into recycle_product (station_id, code, commodity_id, 
+      sku_id,sku_name, specification_id, specification_name,
+      lengths, width, height, 
+      weight, create_by, create_date, 
+      update_by, update_date, remark, 
+      del_flag, version)
+    values (#{stationId,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{commodityId,jdbcType=BIGINT}, 
+      #{skuId,jdbcType=BIGINT},#{skuName,jdbcType=VARCHAR}, #{specificationId,jdbcType=BIGINT}, #{specificationName,jdbcType=VARCHAR},
+      #{lengths,jdbcType=BIGINT}, #{width,jdbcType=BIGINT}, #{height,jdbcType=BIGINT}, 
+      #{weight,jdbcType=DECIMAL}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{version,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.zipworld.cloud.product.entity.recycle.product.RecycleProduct" useGeneratedKeys="true">
+    insert into recycle_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stationId != null">
+        station_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="commodityId != null">
+        commodity_id,
+      </if>
+      <if test="skuId != null">
+        sku_id,
+      </if>
+      <if test="sku_name!=null">
+        sku_name,
+      </if>
+      <if test="specificationId != null">
+        specification_id,
+      </if>
+      <if test="specificationName != null">
+        specification_name,
+      </if>
+      <if test="lengths != null">
+        lengths,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stationId != null">
+        #{stationId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityId != null">
+        #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuName != null">
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="specificationId != null">
+        #{specificationId,jdbcType=BIGINT},
+      </if>
+      <if test="specificationName != null">
+        #{specificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="lengths != null">
+        #{lengths,jdbcType=BIGINT},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=BIGINT},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.zipworld.cloud.product.entity.recycle.product.RecycleProduct">
+    update recycle_product
+    <set>
+      <if test="stationId != null">
+        station_id = #{stationId,jdbcType=BIGINT},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityId != null">
+        commodity_id = #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null">
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="skuName != null">
+        sku_name = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="specificationId != null">
+        specification_id = #{specificationId,jdbcType=BIGINT},
+      </if>
+      <if test="specificationName != null">
+        specification_name = #{specificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="lengths != null">
+        lengths = #{lengths,jdbcType=BIGINT},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=BIGINT},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.zipworld.cloud.product.entity.recycle.product.RecycleProduct">
+    update recycle_product
+    set station_id = #{stationId,jdbcType=BIGINT},
+      code = #{code,jdbcType=VARCHAR},
+      commodity_id = #{commodityId,jdbcType=BIGINT},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      sku_Name = #{skuName,jdbcType=VARCHAR},
+      specification_id = #{specificationId,jdbcType=BIGINT},
+      specification_name = #{specificationName,jdbcType=VARCHAR},
+      lengths = #{lengths,jdbcType=BIGINT},
+      width = #{width,jdbcType=BIGINT},
+      height = #{height,jdbcType=BIGINT},
+      weight = #{weight,jdbcType=DECIMAL},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      version = #{version,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

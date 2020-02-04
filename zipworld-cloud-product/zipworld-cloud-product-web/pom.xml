@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>zipworld-cloud-product</artifactId>
+        <groupId>cn.zipworld.cloud</groupId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <groupId>cn.zipworld.cloud</groupId>
+    <artifactId>zipworld-cloud-product-web</artifactId>
+    <version>1.0.0</version>
+    <name>zipworld-cloud-product-web</name>
+    <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <!--数据库相关配置 开始 -->
+        <!-- 此配置应该移动到dao模块 但是yml文件配置复制问题未解决-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-boot-starter.version}</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>${mysql-connector-java.version}</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.github.pagehelper</groupId>-->
+            <!--<artifactId>pagehelper-spring-boot-starter</artifactId>-->
+            <!--<version>${pagehelper-spring-boot-starter.version}</version>-->
+        <!--</dependency>-->
+        <!--数据库相关配置 结束-->
+        <!--加载依赖模块-->
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-common-config</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-common-vo</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-common-entity</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-common-util</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-user-service</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-product-business</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--用户登录认证-->
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-common-auth</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--用户登录认证 结束-->
+        <dependency>
+            <groupId>cn.zipworld.cloud</groupId>
+            <artifactId>zipworld-cloud-product-entity</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--加载依赖模块结束-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>true</skipTests>    <!--默认关掉单元测试 -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

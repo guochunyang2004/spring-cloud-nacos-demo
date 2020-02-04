@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>zipworld-cloud-parent</artifactId>
+		<groupId>cn.zipworld.cloud</groupId>
+		<version>1.0.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>cn.zipworld.cloud</groupId>
+	<artifactId>zipworld-cloud-product</artifactId>
+	<version>1.0.0</version>
+	<name>zipworld-cloud-product</name>
+	<description>Demo project for Spring Boot</description>
+	<packaging>pom</packaging>
+	<modules>
+		<module>zipworld-cloud-product-service</module>
+		<module>zipworld-cloud-product-service-impl</module>
+		<module>zipworld-cloud-product-web</module>
+	</modules>
+
+
+</project>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zipworld.cloud.user.dao.station.StationInfoDao">
+  <resultMap id="BaseResultMap" type="cn.zipworld.cloud.user.entity.station.StationInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="manager_admin_id" jdbcType="BIGINT" property="managerAdminId" />
+    <result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+    <result column="manager_telephone" jdbcType="VARCHAR" property="managerTelephone" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, `name`, type_id, city_id, city_name, address, manager_admin_id, manager_name, 
+    manager_telephone, `status`, create_by, create_date, update_by, update_date, remarks, 
+    del_flag, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="cn.zipworld.cloud.user.entity.station.StationInfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from station_info
+    where id = #{id,jdbcType=BIGINT}
+      and code = #{code,jdbcType=VARCHAR}
+  </select>
+  <select id="select" parameterType="cn.zipworld.cloud.user.entity.station.StationInfoKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from station_info
+    <where>
+      del_flag = 0
+
+    </where>
+    and code = #{code,jdbcType=VARCHAR}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="cn.zipworld.cloud.user.entity.station.StationInfoKey">
+    update station_info set del_flag=0 where id = #{id,jdbcType=BIGINT}
+      and code = #{code,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.zipworld.cloud.user.entity.station.StationInfo" useGeneratedKeys="true">
+    insert into station_info (code, `name`, type_id, 
+      city_id, city_name, address, 
+      manager_admin_id, manager_name, manager_telephone, 
+      `status`, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag, version)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
+      #{cityId,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{managerAdminId,jdbcType=BIGINT}, #{managerName,jdbcType=VARCHAR}, #{managerTelephone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{version,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.zipworld.cloud.user.entity.station.StationInfo" useGeneratedKeys="true">
+    insert into station_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="managerAdminId != null">
+        manager_admin_id,
+      </if>
+      <if test="managerName != null">
+        manager_name,
+      </if>
+      <if test="managerTelephone != null">
+        manager_telephone,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="managerAdminId != null">
+        #{managerAdminId,jdbcType=BIGINT},
+      </if>
+      <if test="managerName != null">
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTelephone != null">
+        #{managerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.zipworld.cloud.user.entity.station.StationInfo">
+    update station_info
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="managerAdminId != null">
+        manager_admin_id = #{managerAdminId,jdbcType=BIGINT},
+      </if>
+      <if test="managerName != null">
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTelephone != null">
+        manager_telephone = #{managerTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+      and code = #{code,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.zipworld.cloud.user.entity.station.StationInfo">
+    update station_info
+    set `name` = #{name,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      manager_admin_id = #{managerAdminId,jdbcType=BIGINT},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      manager_telephone = #{managerTelephone,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      version = #{version,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+      and code = #{code,jdbcType=VARCHAR}
+  </update>
+</mapper>
